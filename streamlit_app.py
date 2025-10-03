@@ -78,19 +78,20 @@ with st.container(border=True):
 
 with st.container(border = True):
     st.subheader("Huursom Dashboard", divider="gray")
-    col1,col2 = st.columns([2,1])
+    col1,col2,col3 = st.columns(3)
     h = 80
     with col1:
-        #st.write("Bezetting chalet")
         with st.container(height = h, vertical_alignment = "center", border = False):
-            col1_1,col1_2 = st.columns(2)
-            with col1_1:
-                occupancy = st.number_input("Percentage bezetting chalet", key = "occ_perc", value = 65.00, min_value = 0.01, max_value = 100.00, on_change=cv.perc_to_days)
-            with col1_2:
-                occupancy_days = st.number_input("Dagen bezetting chalet", key = "occ_day", value = 65 * 365 / 100,min_value =0.01, max_value = 365.00, on_change=cv.days_to_perc )
-            cost_per_night = st.session_state.total_cost / ((occupancy/100) * 365)
+            occupancy = st.number_input("Percentage bezetting chalet", key = "occ_perc", value = 65.00, min_value = 0.01, max_value = 100.00, on_change=cv.perc_to_days)
+            
 
     with col2:
+        with st.container(height = h, vertical_alignment = "center", border = False):
+            occupancy_days = st.number_input("Dagen bezetting chalet", key = "occ_day", value = 65 * 365 / 100,min_value =0.01, max_value = 365.00, on_change=cv.days_to_perc )
+            cost_per_night = st.session_state.total_cost / ((occupancy/100) * 365)
+
+
+    with col3:
         with st.container(height = h-15, vertical_alignment="bottom", border = False):
             cost_per_night = st.session_state.total_cost / ((occupancy/100) * 365)
             st.write("Kosten per nacht voor eigenaar:\n ", round(cost_per_night,2)," €")
